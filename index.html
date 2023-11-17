@@ -117,4 +117,48 @@
                 ]
             };
 
-            console
+            console.log(JSON.stringify(formData));
+
+            fetch('https://crm.anapro.com.br/webcrm/webapi/integracao/v2/CadastrarProspect', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Sucesso:', data);
+                })
+                .catch((error) => {
+                    console.error('Erro ao enviar para o CRM Anapro:', error);
+                });
+        }
+    </script>
+
+    <script>
+        function showConfirmation() {
+            enviarParaCRM();
+            var confirmationDiv = document.createElement('div');
+            confirmationDiv.innerHTML = '<p style="text-align:center;font-size: 1.2em;color: white;">Mensagem enviada com sucesso!</p>';
+            confirmationDiv.style.width = '20vw';
+            confirmationDiv.style.height = '20vh';
+            confirmationDiv.style.position = 'fixed';
+            confirmationDiv.style.top = '70%';
+            confirmationDiv.style.left = '30%';
+            confirmationDiv.style.transform = 'translate(-50%, -50%)';
+            confirmationDiv.style.backgroundColor = '#0c1825';
+            confirmationDiv.style.zIndex = '1000';
+            confirmationDiv.style.fontFamily = 'Qartella Light, sans-serif';
+
+            document.body.appendChild(confirmationDiv);
+
+            setTimeout(function () {
+                confirmationDiv.remove();
+            }, 2000);
+        }
+    </script>
+
+</body>
+
+</html>
