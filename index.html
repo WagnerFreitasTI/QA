@@ -4,8 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
     <title>Exemplo de Formulário</title>
     <style>
         body {
@@ -50,7 +48,7 @@
 
     <h2>FormulárioQA</h2>
 
-    <form action="" method="post">
+    <form action="" method="post" onsubmit="event.preventDefault(); showConfirmation();">
         <label for="name">Nome:</label>
         <input type="text" id="name" name="name" required>
 
@@ -65,96 +63,64 @@
         <label for="message">Mensagem:</label>
         <textarea id="message" name="message" rows="4" required></textarea>
 
-        <button type="submit" onclick="showConfirmation()">Enviar</button>
+        <button type="submit">Enviar</button>
     </form>
+
+    <script>
+        const valueStrProduto = 'Quinta Das Amoras';
+        const valueKeyCRM = 'qcEPnRERhHM1';
+        const valueCampanhaKey = 'rqRubwjYRD81';
+        const valueProdutoKey = 'k5OmhK3PuYU1';
+        const valueCanalKey = 'BCyWEY5C4Ys1';
+        const valueKeyIntegradora = 'E79F8999-6F8D-4DE2-83E0-32ACFBAC00C5';
+        const valueKeyAgencia = '9e5c3a08-deee-4b3d-8a34-48ace303a5df';
+
+        function enviarParaCRM() {
+            const formData = {
+                // ... (seu código anterior)
+            };
+
+            console.log(JSON.stringify(formData));
+
+            fetch('https://crm.anapro.com.br/webcrm/webapi/integracao/v2/CadastrarProspect', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Sucesso:', data);
+                })
+                .catch((error) => {
+                    console.error('Erro ao enviar para o CRM Anapro:', error);
+                });
+        }
+
+        function showConfirmation() {
+            enviarParaCRM();
+            var confirmationDiv = document.createElement('div');
+            confirmationDiv.innerHTML = '<p style="text-align:center;font-size: 1.2em;color: white;">Mensagem enviada com sucesso!</p>';
+            confirmationDiv.style.width = '20vw';
+            confirmationDiv.style.height = '20vh';
+            confirmationDiv.style.position = 'fixed';
+            confirmationDiv.style.top = '70%';
+            confirmationDiv.style.left = '30%';
+            confirmationDiv.style.transform = 'translate(-50%, -50%)';
+            confirmationDiv.style.backgroundColor = '#0c1825';
+            confirmationDiv.style.zIndex = '1000';
+            confirmationDiv.style.fontFamily = 'Qartella Light', 'sans-serif';
+
+            document.body.appendChild(confirmationDiv);
+
+            setTimeout(function () {
+                confirmationDiv.remove();
+            }, 2000);
+        }
+    </script>
 
 </body>
 
-<script>
-    const valueStrProduto = 'Quinta Das Amoras';
-    const valueKeyCRM = 'qcEPnRERhHM1';
-    const valueCampanhaKey = 'rqRubwjYRD81';
-    const valueProdutoKey = 'k5OmhK3PuYU1';
-    const valueCanalKey = 'BCyWEY5C4Ys1';
-    const valueKeyIntegradora = 'E79F8999-6F8D-4DE2-83E0-32ACFBAC00C5';
-    const valueKeyAgencia = '9e5c3a08-deee-4b3d-8a34-48ace303a5df';
-
-    function enviarParaCRM() {
-        const formData = {
-            "TagAtalho": "",
-            'StrProduto': valueStrProduto,
-            'KeyCRM': valueKeyCRM,
-            'CampanhaKey': valueCampanhaKey,
-            'ProdutoKey': valueProdutoKey,
-            'CanalKey': valueCanalKey,
-            'KeyIntegradora': valueKeyIntegradora,
-            'KeyAgencia': valueKeyAgencia,
-            "PoliticaPrivacidadeKey": "",
-            "Midia": "",
-            "Peca": "",
-            "UsuarioEmail": "",
-            "GrupoPeca": "",
-            "CampanhaPeca": "",
-            "PessoaNome": document.getElementById('name').value,
-            "PessoaSexo": "",
-            "ValidarEmail": "false",
-            "PessoaEmail": document.getElementById('email').value,
-            "ValidarTelefone": "false",
-            "PessoaTelefones": [{
-                "Tipo": "OUTR",
-                "DDD": "11",
-                "Numero": document.getElementById('whatsapp').value,
-                "Ramal": null
-            }],
-            "Observacoes": document.getElementById('message').value,
-            "KeyExterno": "",
-            "UsarKeyExterno": "false",
-            "ListHashTag": ["#altopadrao"]
-        };
-
-        console.log(JSON.stringify(formData));
-
-        fetch('https://crm.anapro.com.br/webcrm/webapi/integracao/v2/CadastrarProspect', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Sucesso:', data);
-        })
-        .catch(error => {
-            console.error('Erro ao enviar para o CRM Anapro:', error);
-        });
-    }
-</script>
-
-<script>
-    function showConfirmation() {
-        enviarParaCRM();
-        var confirmationDiv = document.createElement('div');
-        confirmationDiv.innerHTML = '<p style="text-align:center;font-size: 1.2em;color: white;">Mensagem enviada com sucesso!</p>';
-        confirmationDiv.style.width = '20vw';
-        confirmationDiv.style.height = '20vh';
-        confirmationDiv.style.position = 'fixed';
-        confirmationDiv.style.top = '70%';
-        confirmationDiv.style.left = '30%';
-        confirmationDiv.style.transform = 'translate(-50%, -50%)';
-        confirmationDiv.style.backgroundColor = '#0c1825';
-        confirmationDiv.style.zIndex = '1000';
-        confirmationDiv.style.fontFamily = 'Qartella Light', 'sans - serif';
-
-
-        document.body.appendChild(confirmationDiv);
-
-
-        setTimeout(function () {
-            confirmationDiv.remove();
-        }, 2000);
-    }
-
-</script>
-
 </html>
+
