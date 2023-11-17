@@ -77,8 +77,45 @@
 
         function enviarParaCRM() {
             const formData = {
-                // ... (seu código anterior)
-            };
+   
+            "TagAtalho": "",
+            'StrProduto': valueStrProduto,
+            'KeyCRM': valueKeyCRM,
+            'CampanhaKey': valueCampanhaKey,
+            'ProdutoKey': valueProdutoKey,
+            'CanalKey': valueCanalKey,
+            'KeyIntegradora': valueKeyIntegradora,
+            'KeyAgencia': valueKeyAgencia,
+            "PoliticaPrivacidadeKey": "",
+            "Midia": "",
+            "Peca": "",
+            "UsuarioEmail": "",
+            "GrupoPeca": "",
+            "CampanhaPeca": "",
+            "PessoaNome": document.getElementById('name').value,
+            "PessoaSexo": "",
+            "ValidarEmail": "false",
+            "PessoaEmail": document.getElementById('email').value,
+            "ValidarTelefone": "false",
+            "PessoaTelefones": [
+                {
+                    "Tipo": "OUTR",
+                    "DDD": "11",
+                    "Numero": document.getElementById('whatsapp').value,
+                    "Ramal": null
+                },
+
+            ],
+            "Observacoes": document.getElementById('message').value,
+            "KeyExterno": "",
+            "UsarKeyExterno": "false",
+            "ListHashTag": [
+                "#altopadrao",
+
+            ]
+        };
+
+    
 
             console.log(JSON.stringify(formData));
 
