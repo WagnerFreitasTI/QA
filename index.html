@@ -75,9 +75,10 @@
         const valueKeyIntegradora = 'E79F8999-6F8D-4DE2-83E0-32ACFBAC00C5';
         const valueKeyAgencia = '9e5c3a08-deee-4b3d-8a34-48ace303a5df';
 
-        function enviarParaCRM() {
-            const formData = {
-   
+
+<script>
+    function enviarParaCRM() {
+        const formData = {
             "TagAtalho": "",
             'StrProduto': valueStrProduto,
             'KeyCRM': valueKeyCRM,
@@ -87,7 +88,7 @@
             'KeyIntegradora': valueKeyIntegradora,
             'KeyAgencia': valueKeyAgencia,
             "PoliticaPrivacidadeKey": "",
-            "Midia": "",
+            "Midia": "Site",
             "Peca": "",
             "UsuarioEmail": "",
             "GrupoPeca": "",
@@ -115,47 +116,50 @@
             ]
         };
 
-    
+        console.log(JSON.stringify(formData));
 
-            console.log(JSON.stringify(formData));
+        fetch('https://crm.anapro.com.br/webcrm/webapi/integracao/v2/CadastrarProspect', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
 
-            fetch('https://crm.anapro.com.br/webcrm/webapi/integracao/v2/CadastrarProspect', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
+            },
+            body: JSON.stringify(formData),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Sucesso:', data);
             })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Sucesso:', data);
-                })
-                .catch((error) => {
-                    console.error('Erro ao enviar para o CRM Anapro:', error);
-                });
-        }
+            .catch((error) => {
+                console.error('Erro ao enviar para o CRM Anapro:', error);
+            });
+    }
+</script>
+<script>
+    function showConfirmation() {
+        enviarParaCRM();
+        var confirmationDiv = document.createElement('div');
+        confirmationDiv.innerHTML = '<p style="text-align:center;font-size: 1.2em;color: white;">Mensagem enviada com sucesso!</p>';
+        confirmationDiv.style.width = '20vw';
+        confirmationDiv.style.height = '20vh';
+        confirmationDiv.style.position = 'fixed';
+        confirmationDiv.style.top = '70%';
+        confirmationDiv.style.left = '30%';
+        confirmationDiv.style.transform = 'translate(-50%, -50%)';
+        confirmationDiv.style.backgroundColor = '#0c1825';
+        confirmationDiv.style.zIndex = '1000';
+        confirmationDiv.style.fontFamily = 'Qartella Light', 'sans - serif';
 
-        function showConfirmation() {
-            enviarParaCRM();
-            var confirmationDiv = document.createElement('div');
-            confirmationDiv.innerHTML = '<p style="text-align:center;font-size: 1.2em;color: white;">Mensagem enviada com sucesso!</p>';
-            confirmationDiv.style.width = '20vw';
-            confirmationDiv.style.height = '20vh';
-            confirmationDiv.style.position = 'fixed';
-            confirmationDiv.style.top = '70%';
-            confirmationDiv.style.left = '30%';
-            confirmationDiv.style.transform = 'translate(-50%, -50%)';
-            confirmationDiv.style.backgroundColor = '#0c1825';
-            confirmationDiv.style.zIndex = '1000';
-            confirmationDiv.style.fontFamily = 'Qartella Light', 'sans-serif';
 
-            document.body.appendChild(confirmationDiv);
+        document.body.appendChild(confirmationDiv);
 
-            setTimeout(function () {
-                confirmationDiv.remove();
-            }, 2000);
-        }
-    </script>
+
+        setTimeout(function () {
+            confirmationDiv.remove();
+        }, 2000);
+    }
+
+</script>
 
 </body>
 
