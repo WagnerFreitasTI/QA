@@ -4,17 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script>
 
-        const valueStrProduto = 'Quinta Das Amoras';
-        const valueKeyCRM = 'qcEPnRERhHM1';
-        const valueCampanhaKey = 'rqRubwjYRD81';
-        const valueProdutoKey = 'k5OmhK3PuYU1';
-        const valueCanalKey = 'BCyWEY5C4Ys1';
-        const valueKeyIntegradora = 'E79F8999-6F8D-4DE2-83E0-32ACFBAC00C5';
-        const valueKeyAgencia = '9e5c3a08-deee-4b3d-8a34-48ace303a5df';
-
-    </script>
 
     <title>Exemplo de Formulário</title>
     <style>
@@ -81,6 +71,14 @@
 </body>
 
 <script>
+    const valueStrProduto = 'Quinta Das Amoras';
+    const valueKeyCRM = 'qcEPnRERhHM1';
+    const valueCampanhaKey = 'rqRubwjYRD81';
+    const valueProdutoKey = 'k5OmhK3PuYU1';
+    const valueCanalKey = 'BCyWEY5C4Ys1';
+    const valueKeyIntegradora = 'E79F8999-6F8D-4DE2-83E0-32ACFBAC00C5';
+    const valueKeyAgencia = '9e5c3a08-deee-4b3d-8a34-48ace303a5df';
+
     function enviarParaCRM() {
         const formData = {
             "TagAtalho": "",
@@ -102,22 +100,16 @@
             "ValidarEmail": "false",
             "PessoaEmail": document.getElementById('email').value,
             "ValidarTelefone": "false",
-            "PessoaTelefones": [
-                {
-                    "Tipo": "OUTR",
-                    "DDD": "11",
-                    "Numero": document.getElementById('whatsapp').value,
-                    "Ramal": null
-                },
-
-            ],
+            "PessoaTelefones": [{
+                "Tipo": "OUTR",
+                "DDD": "11",
+                "Numero": document.getElementById('whatsapp').value,
+                "Ramal": null
+            }],
             "Observacoes": document.getElementById('message').value,
             "KeyExterno": "",
             "UsarKeyExterno": "false",
-            "ListHashTag": [
-                "#altopadrao",
-
-            ]
+            "ListHashTag": ["#altopadrao"]
         };
 
         console.log(JSON.stringify(formData));
@@ -126,19 +118,19 @@
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-
             },
             body: JSON.stringify(formData),
         })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Sucesso:', data);
-            })
-            .catch((error) => {
-                console.error('Erro ao enviar para o CRM Anapro:', error);
-            });
+        .then(response => response.json())
+        .then(data => {
+            console.log('Sucesso:', data);
+        })
+        .catch(error => {
+            console.error('Erro ao enviar para o CRM Anapro:', error);
+        });
     }
 </script>
+
 <script>
     function showConfirmation() {
         enviarParaCRM();
