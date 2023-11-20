@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Registro</title>
+</head>
+
+<body>
+
+    <h1>Formulário de Registro</h1>
+
+    <form id="registrationForm">
+        <label for="firstName">Nome:</label>
+        <input type="text" id="firstName" name="firstName" required><br>
+
+        <label for="lastName">Sobrenome:</label>
+        <input type="text" id="lastName" name="lastName" required><br>
+
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" name="email" required><br>
+
+        <!-- Adicione mais campos conforme necessário -->
+
+        <button type="button" onclick="submitRegistration()">Enviar</button>
+    </form>
+
+    <script>
+        function submitRegistration() {
+            // Obter dados do formulário
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('email').value;
+
+            // Construir objeto de dados a ser enviado
+            const registrationData = {
+                person: {
+                    firstName: firstName,
+                    lastName: lastName,
+                    // Adicione mais campos conforme necessário
+                },
+                emails: [email],
+                // Adicione mais campos conforme necessário
+            };
+
+            // Realizar solicitação POST para a API
+            fetch('https://api.lassocrm.com/v1/registrants', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer eyJhbGciOiJSUzI1NiJ9.eyJleHAiOjcyMjY1ODI0MDAsInRva2VuRGF0YSI6IntcbiAgXCJwcm9qZWN0SWRcIiA6IDIxODE1LFxuICBcImNsaWVudElkXCIgOiAxMDc2LFxuICBcIm5hbWVcIiA6IFwibGFzc29SZWdpc3RyYXRpb25cIlxufSIsImlzcyI6Ikxhc3NvVG9rZW4iLCJhdWQiOiJMYXNzbyIsInRva2VuSWQiOjQ2MTAyfQ.GeArgFT43cCm2V0DoSeCkQVqaPsXXgqwLaqUJaHRsd58Sy0fDd-MoIF53mqFJalnvuQKVJIA9Zqw0hcv99hA0LrVO6guIZiU-NSeLwBgbuXwI0wkREBDyNnMlrOsGDEceCgY1DfmS_5JgiEjskvzuTtZ7rquBlhsYZ6IjC_6qD29-K8bgMchQG6aXxd45W-bjFtQGddNkfuyP2oILWqPYs3Ng8SPoZo5JvvIESAdFUckXH0-ekcVL0XgbXnYEpsIeuw8-ZEngd0dIdFPNZ7getU3lJ4XAAvwh2FLmET3TDoKcVzE-wOpVPbPuCeM4Uvdgw3U1o7CqDpfZn9mf9vb-Q', // Substitua pela sua chave de API
+                },
+                body: JSON.stringify(registrationData),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Resposta da API:', data);
+                    alert('Registrante criado com sucesso!');
+                })
+                .catch(error => {
+                    console.error('Erro ao enviar solicitação:', error);
+                    alert('Erro ao criar registrante. Verifique o console para mais detalhes.');
+                });
+        }
+    </script>
+
+</body>
+
+</html>
