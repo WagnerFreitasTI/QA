@@ -82,18 +82,7 @@
     <script>
         function enviarParaCRM() {
             const formData = {
-                "conta":"qcEPnRERhHM1",
-                'KeyIntegradora': valueKeyIntegradora,
-                   'KeyAgencia': valueKeyAgencia,
-                'CampanhaKey': valueCampanhaKey,
-                  'CanalKey': valueCanalKey,
-                 'ProdutoKey': valueProdutoKey,
-                 "Midia": "Site",
-                "TagAtalho": "qcEPnRERhHM1",
-                'StrProduto': valueStrProduto,
-                'KeyCRM': valueKeyCRM,
-                "PoliticaPrivacidadeKey": "",
-                "Peca": "",
+
                 "UsuarioEmail": "contato@quintadasamoras.com.br",
                 "GrupoPeca": "",
                 "CampanhaPeca": "",
@@ -126,10 +115,12 @@
 
             console.log(JSON.stringify(formData));
 
-            fetch('https://crm.anapro.com.br/webcrm/webapi/integracao/v2/CadastrarProspect', {
+            fetch('https://api.lassocrm.com/v1/registrants', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
+                  'Content-Type': 'application/json',
+                    'Authorization': 'Bearer eyJhbGciOiJSUzI1NiJ9.eyJleHAiOjcyMjY1ODI0MDAsInRva2VuRGF0YSI6IntcbiAgXCJwcm9qZWN0SWRcIiA6IDIxODE1LFxuICBcImNsaWVudElkXCIgOiAxMDc2LFxuICBcIm5hbWVcIiA6IFwibGFzc29SZWdpc3RyYXRpb25cIlxufSIsImlzcyI6Ikxhc3NvVG9rZW4iLCJhdWQiOiJMYXNzbyIsInRva2VuSWQiOjQ2MTAyfQ.GeArgFT43cCm2V0DoSeCkQVqaPsXXgqwLaqUJaHRsd58Sy0fDd-MoIF53mqFJalnvuQKVJIA9Zqw0hcv99hA0LrVO6guIZiU-NSeLwBgbuXwI0wkREBDyNnMlrOsGDEceCgY1DfmS_5JgiEjskvzuTtZ7rquBlhsYZ6IjC_6qD29-K8bgMchQG6aXxd45W-bjFtQGddNkfuyP2oILWqPYs3Ng8SPoZo5JvvIESAdFUckXH0-ekcVL0XgbXnYEpsIeuw8-ZEngd0dIdFPNZ7getU3lJ4XAAvwh2FLmET3TDoKcVzE-wOpVPbPuCeM4Uvdgw3U1o7CqDpfZn9mf9vb-Q', // Substitua pela sua chave de API
+                                    
                 },
                 body: JSON.stringify(formData),
             })
